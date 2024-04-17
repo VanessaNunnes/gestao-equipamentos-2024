@@ -4,56 +4,98 @@
     {
         static void Main(string[] args)
         {
+            bool opcaoSaidaEscolhida = false;
+            while (!opcaoSaidaEscolhida)
+            {
+                Console.Clear();
 
-            Console.WriteLine("--------------------------------------");
-            Console.WriteLine("|       Gestão de Equipamentos       |");
-            Console.WriteLine("--------------------------------------");
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine("|       Gestão de Equipamentos       |");
+                Console.WriteLine("--------------------------------------");
 
-            Console.WriteLine();
+                Console.WriteLine();
 
-            Console.WriteLine("1 - Gerência de Equipamentos");
-            Console.WriteLine("2 - Controle de Chamados");
-            Console.WriteLine("3 - Sair");
+                Console.WriteLine("1 - Gerência de Equipamentos");
+                Console.WriteLine("2 - Controle de Chamados");
+                Console.WriteLine("3 - Sair");
 
-            Console.WriteLine();
+                Console.WriteLine();
 
-            Console.Write("Escolha uma das opções: ");
-            string opcaoEscolhida = Console.ReadLine();
+                Console.Write("Escolha uma das opções: ");
+                char opcaoEscolhida = Console.ReadLine()[0];
 
+                switch (opcaoEscolhida)
+                {
+                    case '1':
+                        GerenciarEquipamentos();
+                        break;
+                    case '2':
+                        GerenciarChamados();
+                        break;
+                    default:
+                        opcaoSaidaEscolhida = true;
+                        break;
+                }
+            }
+            Console.ReadLine();
 
+        }
+        static void GerenciarEquipamentos()
+        {
             Equipamentos equipamentos = new Equipamentos();
 
-            Console.WriteLine("Gestão de Equipamentos");
-
-            bool continuar = true;
-            while (continuar)
+            bool opcaoSaidaEscolhida = false;
+            while (!opcaoSaidaEscolhida)
             {
+                Console.Clear();
+
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine("|       Gestão de Equipamentos       |");
+                Console.WriteLine("--------------------------------------");
+
+                Console.WriteLine();
+
                 Console.WriteLine("Digite 1 para o Cadastro de Equipamentos");
                 Console.WriteLine("Digite 2 para Visualizar Equipamentos");
                 Console.WriteLine("Digite 3 para Editar um Equipamento");
                 Console.WriteLine("Digite 4 para Deletar um Equipamento");
-                Console.WriteLine("Digite 0 para sair");
-                string opcao = Console.ReadLine();
+                Console.WriteLine("Digite S para voltar");
 
-                switch (opcao)
+                Console.WriteLine();
+
+                Console.Write("Escolha uma das opções: ");
+                char operacao = Convert.ToChar(Console.ReadLine());
+
+                switch (operacao)
                 {
-                    case "1":
+                    case '1':
                         equipamentos.CadastrarEquipamento();
                         break;
-                    case "2":
+                    case '2':
                         Console.WriteLine(equipamentos.ListarEquipamentos());
                         break;
-                    case "3":
+                    case '3':
                         equipamentos.EditarEquipamento();
                         break;
-                    case "4":
+                    case '4':
                         equipamentos.DeletarEquipamento();
                         break;
-                    case "0":
-                        continuar = false;
-                        break;   
+                    default:
+                        opcaoSaidaEscolhida = true;
+                        break;
                 }
+                Console.ReadLine();
             }
+        }
+
+
+        static void GerenciarChamados()
+        {
+
         }
     }
 }
+
+
+
+    

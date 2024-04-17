@@ -5,7 +5,7 @@
         public string nome;
         public decimal precoAquisicao;
         public string numeroSerie;
-        public string dataFabricacao;
+        public DateTime dataFabricacao;
         public string fabricante;
         public ListaEquipamentos[] historico = new ListaEquipamentos[100];
         public int equipamentosCadastrados = 0;
@@ -13,17 +13,26 @@
 
         public void CadastrarEquipamento()
         {
+
+            Console.Clear();
+
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("|       Gestão de Equipamentos       |");
+            Console.WriteLine("--------------------------------------");
+
+            Console.WriteLine();
+
             Console.Write("Digite o nome do equipamento: ");
             nome = Console.ReadLine();
 
-            Console.Write("Digite o preço de aquisição: ");
+            Console.Write("Digite o preço de aquisição: R$ ");
             precoAquisicao = Convert.ToDecimal(Console.ReadLine());
 
             Console.Write("Digite o número de série: ");
             numeroSerie = Console.ReadLine();
 
             Console.Write("Digite a data de fabricação: ");
-            dataFabricacao = Console.ReadLine();
+            dataFabricacao = Convert.ToDateTime(Console.ReadLine());
 
             Console.Write("Digite o nome do fabricante: ");
             fabricante = Console.ReadLine();
@@ -48,21 +57,41 @@
 
         public string ListarEquipamentos()
         {
+            Console.Clear();
+
+            Console.WriteLine("---------------------------------------------------------------------------------------------------");
+            Console.WriteLine("|                                 Gestão de Equipamentos                                          |");
+            Console.WriteLine("---------------------------------------------------------------------------------------------------");
+
+            Console.WriteLine();
+
             string lista = "";
-            Console.WriteLine("=========================================================== LISTA ===========================================================");
-            Console.WriteLine("|Id   |Nome              |Preço Aquisição             |Número de Série             |Data de Fabricação          |Fabricante");
+            Console.WriteLine("============================================= LISTA =============================================");
+            Console.WriteLine("|{0, -5} | {1, -15} | {2, -15} | {3, -18} | {4, -15} | {5, -15}",
+                               "Id", "Nome", "Preço", "Número de Série", "Data Fabricação", "Fabricante" );
+
             for (int i = 0; i < 100; i++)
             {
                 if (historico[i] != null)
                 {
-                    lista += $"{historico[i].Lista()}";
+                    ListaEquipamentos equipamento = historico[i];
+                    lista += $"|{equipamento.id,-5} | {equipamento.nome,-15} | {equipamento.precoAquisicao,-15} | {equipamento.numeroSerie,-18} | {equipamento.dataFabricacao.ToShortDateString(),-15} | {equipamento.fabricante, -15}\n";
                 }
             }
-            return lista;
+            return lista; 
         }
 
         public void DeletarEquipamento()
         {
+            Console.Clear();
+
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("|       Gestão de Equipamentos       |");
+            Console.WriteLine("--------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine("================== DELETAR ==================");
             Console.Write("Digite o ID do equipamento que deseja deletar: ");
             int idParaDeletar = Convert.ToInt32(Console.ReadLine());
             if (idParaDeletar >= 0 && idParaDeletar < historico.Length)
@@ -81,12 +110,24 @@
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Equipamento não encontrado!");
+                Console.ResetColor();
             }
         }
 
         public void EditarEquipamento()
         {
+            Console.Clear();
+
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("|       Gestão de Equipamentos       |");
+            Console.WriteLine("--------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine("================== EDITAR ==================");
+
             Console.Write("Digite o ID do equipamento que deseja editar: ");
             int idParaEditar = Convert.ToInt32(Console.ReadLine());
 
@@ -109,7 +150,7 @@
                     historico[i].numeroSerie = novoNumeroSerie;
 
                     Console.Write("Nova data de fabricação: ");
-                    string novaDataFabricacao = Console.ReadLine();
+                    DateTime novaDataFabricacao = Convert.ToDateTime(Console.ReadLine());
                     historico[i].dataFabricacao = novaDataFabricacao;
 
                     Console.Write("Novo fabricante: ");
